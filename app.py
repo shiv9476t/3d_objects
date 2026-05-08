@@ -6,6 +6,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/")
+def index():
+    return send_file("index.html")
+
 @app.route("/models", methods=["POST"])
 def generate_model():
     data = request.json
@@ -23,7 +27,7 @@ def get_model(task_id):
     if status == "PENDING" or status == "IN_PROGRESS":
         return jsonify({"status": status, "file_url": None}), 200
     elif status == "FINISHED":
-        return jsonify({"status": status, "file_url": f"http://127.0.0.1:5000/models/{task_id}/file"}), 200
+        return jsonify({"status": status, "file_url": f"/models/{task_id}/file"}), 200
     elif status == "FAILED":
         return jsonify({"status": status, "file_url": None}), 400
 
@@ -43,4 +47,5 @@ def test_model():
     return send_file(glb_files[0], mimetype="model/gltf-binary")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)

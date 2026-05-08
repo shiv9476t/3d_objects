@@ -57,7 +57,7 @@ button.addEventListener("click", async () => {
     statusEl.textContent = "Generating your 3D model... this may take a minute"
     statusEl.className = ""
 
-    const response = await fetch("http://127.0.0.1:5000/models", {
+    const response = await fetch("/models", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: prompt })
@@ -76,7 +76,7 @@ button.addEventListener("click", async () => {
 
 async function pollStatus(task_id) {
     while (true) {
-        const response = await fetch(`http://127.0.0.1:5000/models/${task_id}`)
+        const response = await fetch(`/models/${task_id}`)
         const data = await response.json()
         const status = data.status
 
