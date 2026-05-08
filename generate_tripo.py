@@ -38,8 +38,11 @@ def check_status(task_id):
     print(f"Status: {status}")
     
     if status == "success":
-        print("Output keys:", data["data"]["output"])
-        download_url = data["data"]["output"]["pbr_model"]
+        output = data["data"]["output"]
+        download_url = output.get("pbr_model") or output.get("model") or output.get("rendered_image")
+        if not download_url:
+            print("Full output:", output)
+            return "FAILED", None
         download_model(download_url, task_id)
         return "FINISHED", task_id
     elif status in ["queued", "running"]:
