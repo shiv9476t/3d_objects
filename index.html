@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+                }
+            }
+        </script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="controls">
+            <input type="text" placeholder="Enter prompt" id="prompt">
+            <button id="prompt_button">Generate</button>
+        </div>
+        <div id="status"></div>
+        <script type="module" src="app.js"></script>
+    </body>
+</html>
